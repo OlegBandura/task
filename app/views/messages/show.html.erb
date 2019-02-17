@@ -1,0 +1,12 @@
+<% if @res.present? %>
+<%= form_for :message_key, url: read_message_path(@res) do |f| %>
+  <p>
+    <p>Please paste key here:</p>
+    <% res = @res %>
+    <p><%= f.password_field :key %></p>
+    <%= f.submit "Send" %>
+  </p>
+<% end %>
+<% else %>
+  <p class="error_message">Message path doesn't valid</p>
+<% end %>

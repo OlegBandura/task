@@ -10,6 +10,10 @@ class MessageEncryptorService
     { key: key, encrypted_message: encrypted_message }
   end
 
+  def decrypt(key)
+    AES.decrypt(message, key)
+  end
+
   private
 
   attr_reader :message
