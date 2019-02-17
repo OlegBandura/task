@@ -18,17 +18,21 @@ class MessagesController < ApplicationController
   def new; end
 
   def create
-    enc_message = MessageEncryptorService.new(message_params[:text]).encrypt
-    @message_info = {
-      encryption_key: enc_message[:key],
-      destroy_option: message_params[:destroy_option],
-      count_times: message_params[:count_times],
-      urlsafe: SecureRandom.urlsafe_base64
-    }
+    unless message_params[:text].empty?
+      enc_message = MessageEncryptorService.new(message_params[:text]).encrypt
+      @message_info = {
+        encryption_key: enc_message[:key],
+        destroy_option: message_params[:destroy_option],
+        count_times: message_params[:count_times],
+        urlsafe: SecureRandom.urlsafe_base64
+      }
 
-    message = { text_message: enc_message[:encrypted_message] }.merge(@message_info)
-    uri = URI.parse('http://localhost:4567/message')
-    response = Net::HTTP.post_form(uri, message)
+      message = { text_message: enc_message[:encrypted_message] }.merge(@message_info)
+      uri = URI.parse('http://localhost:4567/message')
+      response = Net::HTTP.post_form(uri, message)
+    else
+      redirect_to new_message_path
+    end
   end
 
   private
