@@ -1,4 +1,4 @@
 <h1>Thanks, I encrypt and send your message ;)</h1>
 <p>key: <%= @message_info[:encryption_key] %></p>
 <p>message destroyed on: <%= @message_info[:destroy_option] %></p>
-<p>url: <%= request.base_url + '/message/' + @message_info[:urlsafe] %></p>
+<p>url: <%= request.base_url + '/messages/' + @message_info[:urlsafe] %></p>

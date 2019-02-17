@@ -1,7 +1,18 @@
 class MessagesController < ApplicationController
   require 'net/http'
 
-  def index
+  def index; end
+
+  def show
+    uri = URI('http://localhost:4567')
+    res = Net::HTTP.get(uri + '/message/' + params[:id])
+    @res = JSON.parse(res) if res.present?
+  end
+
+  def read
+    if show['encryption_key'] == key_params[:key]
+      @decr_message = MessageEncryptorService.new(show['text_message']).decrypt(key_params[:key])
+    end
   end
 
   def new; end
@@ -23,5 +34,9 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:text, :destroy_option)
+  end
+
+  def key_params
+    params.require(:message_key).permit(:key)
   end
 end
