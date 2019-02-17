@@ -10,8 +10,8 @@ class MessagesController < ApplicationController
   end
 
   def read
-    if show['encryption_key'] == key_params[:key]
-      @decr_message = MessageEncryptorService.new(show['text_message']).decrypt(key_params[:key])
+    if params['encryption_key'] == key_params[:key]
+      @decr_message = MessageEncryptorService.new(params[:text_message]).decrypt(key_params[:key])
     end
   end
 
