@@ -22,6 +22,7 @@ class MessagesController < ApplicationController
     @message_info = {
       encryption_key: enc_message[:key],
       destroy_option: message_params[:destroy_option],
+      count_times: message_params[:count_times],
       urlsafe: SecureRandom.urlsafe_base64
     }
 
@@ -33,7 +34,7 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:text, :destroy_option)
+    params.require(:message).permit(:text, :destroy_option, :count_times)
   end
 
   def key_params
