@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   def index; end
 
   def show
-    uri = URI('http://localhost:4567')
+    uri = URI('https://message-backend-api.herokuapp.com')
     res = Net::HTTP.get(uri + '/message/' + params[:id])
     @res = JSON.parse(res) if res.present?
   end
@@ -28,7 +28,7 @@ class MessagesController < ApplicationController
       }
 
       message = { text_message: enc_message[:encrypted_message] }.merge(@message_info)
-      uri = URI.parse('http://localhost:4567/message')
+      uri = URI.parse('https://message-backend-api.herokuapp.com/message')
       response = Net::HTTP.post_form(uri, message)
     else
       redirect_to new_message_path
