@@ -2,7 +2,8 @@
   <p>
     <p><%= f.label 'Message form' %></p>
     <p>Please add message here: <%= f.text_field :text %></p>
-    <p>Destroy option <%= f.select(:destroy_option, ['1 hour', '1 visit'] ) %></p>
+    <p>Destroy option <%= f.select(:destroy_option, ['hour', 'visit'] ) %></p>
+    <p>Destroy n-times: <%= f.text_field :count_times, type: 'number', min: '1' %></p>
     <%= f.submit "Send" %>
   </p>
 <% end %>
